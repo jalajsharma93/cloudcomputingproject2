@@ -10,7 +10,7 @@ from pyspark.ml.classification import RandomForestClassificationModel
 spark = SparkSession.builder.master("local").appName("wineClasssification").config("spark.some.config.option","some-value").getOrCreate()
 
 #########################           Reading Dataset                         ########################
-#val_data = spark.read.csv('hdfs://ip-172-31-15-95.ec2.internal:8020/ValidationDataset.csv',header='true', inferSchema='true', sep=';')
+#val_data = spark.read.csv('ValidationDataset.csv',header='true', inferSchema='true', sep=';')
 val_data = spark.read.csv('TestDataset.csv',header='true', inferSchema='true', sep=';')
 feature = [c for c in val_data.columns if c != 'quality']
 assembler_v = VectorAssembler(inputCols=feature, outputCol="features")

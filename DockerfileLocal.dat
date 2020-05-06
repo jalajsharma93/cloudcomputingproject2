@@ -1,0 +1,55 @@
+### 1. Get Linux
+FROM alpine:3.7
+
+### 2. Get Java via the package manager
+RUN apk update \
+&& apk upgrade \
+&& apk add --no-cache bash \
+&& apk add --no-cache --virtual=build-dependencies unzip \
+&& apk add --no-cache curl \
+&& apk add --no-cache openjdk8-jre
+
+### 3. Get Python, PIP
+
+RUN apk add --no-cache python3 \
+&& python3 -m ensurepip \
+&& pip3 install --upgrade pip setuptools \
+&& rm -r /usr/lib/python*/ensurepip && \
+if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
+if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 ; fi && \
+rm -r /root/.cache
+
+### Get Flask for the app
+#RUN pip install
+#--trusted-host pypi.python.org flask
+RUN pip3 install --upgrade pip
+
+RUN apk add --update  python python3 python-dev python3-dev gfortran py-pip build-base
+RUN apk update && apk add --no-cache libc6-compat
+RUN BLAS=~/src/BLAS/libfblas.a LAPACK=~/src/lapack-3.5.0/liblapack.a pip install -v numpy==1.14
+
+RUN  pip3 install wheel
+RUN  pip3 install pyspark==2.4.5 --no-cache-dir
+RUN  pip3 install findspark
+RUN  pip3 install numpy
+RUN  pip3 install pathlib
+
+COPY pa2.py pa2.py
+COPY PA2-1.10.py PA2-1.10.py
+COPY TrainingDataset_1.csv TrainingDataset_1.csv
+COPY PA2-1.11_Validation.py PA2-1.11_Validation.py
+COPY TestDataset.csv /TestDataset.csv
+ADD TestDataset.csv /
+ADD meramodel /meramodel
+RUN ls -la /*
+####
+#### OPTIONAL : 4. SET JAVA_HOME environment variable, uncomment the line below if you need it
+
+#ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
+
+#CMD ["python3", "PA2-1.10.py"]
+RUN echo Success for training*************************************************************** 
+RUN ls -la
+CMD ["python3", "PA2-1.11_Validation.py"]
+#CMD  python3 PA2-1.10.py && python3 PA2-1.11_Validation.py
+

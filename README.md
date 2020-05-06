@@ -1,4 +1,4 @@
-# Namae: Jalaj Sharma
+# Name: Jalaj Sharma
 # UCID : js2475
 #github link: https://github.com/jalajsharma93/cloudcomputingproject2
 #docker link : https://hub.docker.com/u/jalajsharma93

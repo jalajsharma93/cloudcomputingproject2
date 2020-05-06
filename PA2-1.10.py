@@ -16,7 +16,7 @@ spark = SparkSession.builder.master("local").appName("wineClasssification").conf
 #########################           Reading Dataset                         ########################
                                        #Training Dataset
 #raw_data = spark.read.csv('hdfs://ip-172-31-15-95.ec2.internal:8020/Training.csv',header='true', inferSchema='true', sep=';')
-raw_data = spark.read.csv('hdfs://ip-172-31-15-95.ec2.internal:8020/TrainingDataset_1.csv',header='true', inferSchema='true', sep=';')
+raw_data = spark.read.csv('hdfs://ip-172-31-15-95.ec2.internal:8020/TrainingDataset.csv',header='true', inferSchema='true', sep=';')
 
 #raw_data = spark.read.csv('hdfs://ip-172-31-15-95.ec2.internal:8020/TrainingDataset.csv',header='true', inferSchema='true', sep=';')
 #########################           Describe                                #########################
